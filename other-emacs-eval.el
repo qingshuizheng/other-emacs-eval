@@ -56,7 +56,12 @@ absolute file name) of an Emacs."
         (user-error "Emacs not found: %s" emacs)))))
 
 (defun other-emacs-eval-read-emacs ()
-  (string-trim (read-shell-command "Emacs: " "emacs")))
+  (let* ((default-path (concat invocation-directory invocation-name))
+         (path (completing-read
+                "Emacs path: "
+                (list default-path "/Users/z/Applications/Emacs.app")
+                nil nil default-path)))
+    (string-trim path)))
 
 ;;;###autoload
 (defun other-emacs-eval-expression (emacs exp)
