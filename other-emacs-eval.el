@@ -93,5 +93,12 @@ current buffer."
   (let ((form (read (concat "(progn " (buffer-substring-no-properties start end) ")"))))
     (prin1 (other-emacs-eval form emacs))))
 
+;;;###autoload
+(defun other-emacs-eval-buffer (emacs)
+  "Evaluate Emacs Lisp code in the buffer with EMACS."
+  (interactive (list (other-emacs-eval-read-emacs)))
+  (let ((form (read (concat "(progn " (buffer-string) ")"))))
+    (prin1 (other-emacs-eval form emacs))))
+
 (provide 'other-emacs-eval)
 ;;; other-emacs-eval.el ends here
